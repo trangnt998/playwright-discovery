@@ -33,9 +33,9 @@ function calculateBMI(height: number, weight: number) {
 
     if (bmi < 18.5) {
         bodyType = 'Gầy';
-    } else if (bmi >= 18.5 && bmi < 24.9) {
+    } else if (bmi < 24.9) {
         bodyType = 'Bình thường';
-    } else if (bmi >= 25 && bmi < 29.9) {
+    } else if (bmi < 29.9) {
         bodyType = 'Thừa cân';
     } else {
         bodyType = 'Béo phì';
@@ -59,9 +59,9 @@ function calculateBMI2(height: number, weight: number): BMIResult {
 
     if (bmi < 18.5) {
         bodyType = 'Gầy';
-    } else if (bmi >= 18.5 && bmi < 24.9) {
+    } else if (bmi < 24.9) {
         bodyType = 'Bình thường';
-    } else if (bmi >= 25 && bmi < 29.9) {
+    } else if (bmi < 29.9) {
         bodyType = 'Thừa cân';
     } else {
         bodyType = 'Béo phì';
@@ -98,7 +98,7 @@ test('Check BMI', () => {
 
 test('Register Page with username and password', async ({page}) => {
     await page.goto('https://material.playwrightvn.com/');
-    await page.getByRole('link', {name: 'Bài học 1: Register Page (c'}).click();
+    await page.getByRole('link', {name: 'Bài học 1: Register Page (có đủ các element)'}).click();
 
     const user = {
         username: 'peony1',
@@ -111,7 +111,7 @@ test('Register Page with username and password', async ({page}) => {
     await page.getByLabel('Email:').fill(user.email);
     await page.getByRole('button', {name: 'Register'}).click();
 
-    await expect(page.locator('tbody')).toHaveCount(1);
-    await expect(page.locator('tbody')).toContainText(user.username);
-    await expect(page.locator('tbody')).toContainText(user.email);
+    await expect(page.locator('//tbody//tr')).toHaveCount(1);
+    await expect(page.locator('//tbody//td').nth(1)).toContainText(user.username);
+    await expect(page.locator('//tbody//td').nth(2)).toContainText(user.email);
 });
